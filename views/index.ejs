@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Alumnos</title>
+  <link rel="stylesheet" href="/stylesheets/style.css" />
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+    }
+
+    table {
+      width: 90%; /* Ajustado el ancho de la tabla */
+      margin: 50px auto;
+      border-collapse: collapse;
+      background: #fff;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    th,
+    td {
+      padding: 12px;
+      text-align: left;
+      border-bottom: 1px solid #ddd;
+    }
+
+    th {
+      background-color: #4caf50;
+      color: white;
+    }
+
+    td img {
+      width: 80px;
+      height: auto;
+      display: block;
+      margin: 0 auto;
+    }
+
+    #btnNuevo {
+      display: block;
+      margin: 20px auto;
+      padding: 10px;
+      background-color: #4caf50;
+      color: white;
+      text-decoration: none;
+      border-radius: 4px;
+    }
+
+    #btnNuevo:hover {
+      background-color: #45a049;
+    }
+
+    /* Ajustes para el formulario */
+    form {
+      width: 60%; /* Ajustado el ancho del formulario */
+      margin: 0 auto;
+      padding: 20px;
+      background-color: #fff;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      border-radius: 8px;
+    }
+
+    /* Ajustes para los campos del formulario */
+    form label {
+      display: block;
+      margin-bottom: 8px;
+    }
+
+    form input,
+    form select {
+      width: 100%;
+      padding: 8px;
+      margin-bottom: 16px;
+      box-sizing: border-box;
+    }
+
+    form button {
+      background-color: #4caf50;
+      color: white;
+      padding: 10px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    form button:hover {
+      background-color: #45a049;
+    }
+  </style>
+</head>
+
+<body>
+  <table>
+    <colgroup>
+      <col width="10%">
+      <col width="25%"> <!-- Ajustado el ancho de la columna del nombre completo -->
+      <col width="15%">
+      <col width="15%">
+      <col width="15%">
+      <col width="10%">
+      <col width="10%">
+    </colgroup>
+    <thead>
+      <th scope="col">ID Alumno</th>
+      <th scope="col">Nombre Completo</th>
+      <th scope="col">Email</th>
+      <th scope="col">Teléfono</th>
+      <th scope="col">Estado</th>
+      <th scope="col">Acciones</th>
+    </thead>
+    <tbody>
+      <% for(var i=0; i < datos.length; i++) { %>
+      <tr>
+        <td><%= datos[i].id_alumno %></td>
+        <td><%= datos[i].nombre + ' ' + datos[i].apellido_paterno + ' ' + datos[i].apellido_materno %></td>
+        <td><%= datos[i].email %></td>
+        <td><%= datos[i].telefono %></td>
+        <td><%= datos[i].estado ? 'Activo' : 'Inactivo' %></td>
+        <td><a href="/enviar?idAlumno=<%= datos[i].id_alumno %>">Editar</a></td>
+      </tr>
+      <% } %>
+    </tbody>
+  </table>
+  <a href="/nuevo"><button>Agregar Alumno</button></a>
+</body>
+
+</html>

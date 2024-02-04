@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Administrar Alumnos</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    form {
+      background-color: #fff;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+      border-radius: 8px;
+      width: 300px;
+      display: flex;
+      flex-direction: column; /* Ajuste para organizar los elementos en columna */
+    }
+
+    h1 {
+      text-align: center;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+    }
+
+    input, select {
+      width: 100%;
+      padding: 8px;
+      margin-bottom: 16px;
+      box-sizing: border-box;
+    }
+
+    /* Estilo añadido para el contenedor de botones */
+    .button-container {
+      display: flex;
+      justify-content: space-between;
+    }
+
+    button {
+      background-color: #4caf50;
+      color: white;
+      padding: 10px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      width: 48%; /* Ajuste para dividir el espacio entre los dos botones */
+    }
+
+    button:hover {
+      background-color: #45a049;
+    }
+  </style>
+</head>
+<body>
+  <form action="/operacion" method="post">
+    <h1>Administrar Alumnos</h1>
+
+    <% if (idAlumno) { %>
+      <label>ID de Alumno: <%= idAlumno %></label>
+      <input type="hidden" name="idAlumno" value="<%= idAlumno %>">
+    <% } else { %>
+      <label for="idAlumno">ID de Alumno:</label>
+      <input type="text" id="idAlumno" name="idAlumno" required>
+    <% } %>
+
+    <label for="nombre">Nombre:</label>
+    <input type="text" id="nombre" name="nombre" value="<%= alumno ? alumno.nombre : '' %>" required>
+
+    <label for="apellidoPaterno">Apellido Paterno:</label>
+    <input type="text" id="apellidoPaterno" name="apellidoPaterno" value="<%= alumno ? alumno.apellido_paterno : '' %>" required>
+
+    <label for="apellidoMaterno">Apellido Materno:</label>
+    <input type="text" id="apellidoMaterno" name="apellidoMaterno" value="<%= alumno ? alumno.apellido_materno : '' %>" required>
+
+    <label for="email">Email:</label>
+    <input type="email" id="email" name="email" value="<%= alumno ? alumno.email : '' %>">
+
+    <label for="telefono">Teléfono:</label>
+    <input type="tel" id="telefono" name="telefono" value="<%= alumno ? alumno.telefono : '' %>">
+
+    <label for="estado">Estado:</label>
+    <select id="estado" name="estado" required>
+      <option value="true" <%= alumno && alumno.estado ? 'selected' : '' %>>Activo</option>
+      <option value="false" <%= alumno && !alumno.estado ? 'selected' : '' %>>Inactivo</option>
+    </select>
+
+    <!-- Contenedor para los botones -->
+    <div class="button-container">
+      <button type="submit" name="accion" value="guardar">Guardar</button>
+
+      <% if (idAlumno) { %>
+        <button type="submit" name="accion" value="eliminar">Eliminar</button>
+        <button type="submit" name="accion" value="cancelar">Cancelar</button>
+      <% } else { %>
+        <a href="/"><button type="button">Cancelar</button></a>
+      <% } %>
+    </div>
+  </form>
+</body>
+</html>
