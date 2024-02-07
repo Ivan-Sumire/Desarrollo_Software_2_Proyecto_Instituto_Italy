@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lista de Asistencias</title>
+  <link rel="stylesheet" href="/stylesheets/style.css" />
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+    }
+
+    table {
+      width: 90%;
+      margin: 50px auto;
+      border-collapse: collapse;
+      background: #fff;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    th,
+    td {
+      padding: 12px;
+      text-align: left;
+      border-bottom: 1px solid #ddd;
+    }
+
+    th {
+      background-color: #4caf50;
+      color: white;
+    }
+
+    td img {
+      width: 80px;
+      height: auto;
+      display: block;
+      margin: 0 auto;
+    }
+
+    #btnNuevo {
+      display: block;
+      margin: 20px auto;
+      padding: 10px;
+      background-color: #4caf50;
+      color: white;
+      text-decoration: none;
+      border-radius: 4px;
+    }
+
+    #btnNuevo:hover {
+      background-color: #45a049;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>Lista de Asistencias</h1>
+  <table>
+    <thead>
+      <tr>
+        <th>Código de Asistencia</th>
+        <th>Alumno</th>
+        <th>Fecha</th>
+        <th>Hora</th>
+        <th>Estado</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% for(var i=0; i < asistencias.length; i++) { %>
+      <tr>
+        <td><%= asistencias[i].id_asistencia %></td>
+        <td><%= asistencias[i].nombre_alumno %></td>
+        <td><%= asistencias[i].fecha %></td>
+        <td><%= asistencias[i].hora %></td>
+        <td><%= asistencias[i].estado ? 'Asistió' : 'No Asistió' %></td>
+      </tr>
+      <% } %>
+    </tbody>
+  </table>
+  <a href="/nueva_asistencia"><button>Nueva Asistencia</button></a>
+</body>
+
+</html>
