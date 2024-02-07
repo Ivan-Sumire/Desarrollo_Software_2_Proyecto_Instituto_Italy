@@ -3,7 +3,7 @@ const router = express.Router();
 const pool = require('../bin/DBconnection');
 
 // Ruta principal
-router.get('/', function (req, res, next) {
+router.get('/lista', function (req, res, next) {
   pool.getConnection((err, conexion) => {
     if (err) {
       res.send('Error de conexion: ' + err.message);
@@ -22,6 +22,33 @@ router.get('/', function (req, res, next) {
     }
   });
 });
+
+router.get('/', function (req, res, next) {
+  res.render('principal'); // Renderiza el archivo principal.ejs
+});
+
+router.get('/asis', function (req, res, next) {
+  pool.getConnection((err, conexion) => {
+    if (err) {
+      res.send('Error de conexión: ' + err.message);
+    } else {
+      const sql = "SELECT asistencia.id_asistencia, CONCAT(alumnos.nombre, ' ', alumnos.apellido_paterno, ' ', alumnos.apellido_materno) AS nombre_alumno, asistencia.fecha, asistencia.hora, asistencia.estado FROM asistencia INNER JOIN alumnos ON asistencia.id_alumno = alumnos.id_alumno;";
+
+      conexion.query(sql, (err, resultado) => {
+        if (err) {
+          res.send('Error en consulta: ' + err.message);
+        } else {
+          res.render('asistencia', { asistencias: resultado });
+        }
+      });
+
+      conexion.release();
+    }
+  });
+});
+
+
+
 
 // Ruta para mostrar el formulario de envío o edición
 router.get('/enviar', (req, res) => {
